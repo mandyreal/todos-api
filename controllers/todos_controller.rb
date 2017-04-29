@@ -1,16 +1,10 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: [:show, :update, :destroy]
+  before_action only: [:show, :update, :destroy] { set_todo }
 
   # GET /todos
   def index
     @todos = Todo.all
     json_response(@todos)
-  end
-
-  # POST /todos
-  def create
-    @todo = Todo.create!(todo_params)
-    json_response(@todo, :created)
   end
 
   # GET /todos/:id
@@ -33,7 +27,6 @@ class TodosController < ApplicationController
   private
 
   def todo_params
-    # whitelist params
     params.permit(:title, :created_by)
   end
 
